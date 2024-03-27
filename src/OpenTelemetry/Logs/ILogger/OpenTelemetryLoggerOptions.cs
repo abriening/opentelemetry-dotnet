@@ -70,6 +70,14 @@ public class OpenTelemetryLoggerOptions
     internal bool IncludeAttributes { get; set; } = true;
 
     /// <summary>
+    /// Gets or sets a value indicating which <see
+    /// cref="Activity.Tags"/> for the current <see
+    /// cref="Activity"/> should be included on generated <see
+    /// cref="LogRecord.Tags"/>s. Default value: <see cref="{T}[]"/>.
+    /// </summary>
+    internal string[] AllowedTags { get; set; } = Array.Empty<string>();
+
+    /// <summary>
     /// Gets or sets a value indicating whether or not the <see
     /// cref="Activity.TraceStateString"/> for the current <see
     /// cref="Activity"/> should be included on generated <see

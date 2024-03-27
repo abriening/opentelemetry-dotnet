@@ -77,6 +77,14 @@ internal sealed class OpenTelemetryLogger : ILogger
 
             LogRecordData.SetActivityContext(ref data, activity);
 
+            if(this.options.AllowedTags != null && activity != null)
+            {
+                record.Tags = activity.Tags
+                    .Where(tag => this.options.AllowedTags.Contains(tag.Key))
+                    .ToList()
+                    .AsReadOnly() as IReadOnlyList<KeyValuePair<string, object?>>;
+            }
+
             var attributes = record.AttributeData =
                 ProcessState(record, ref iloggerData, in state, this.options.IncludeAttributes, this.options.ParseStateValues);
 

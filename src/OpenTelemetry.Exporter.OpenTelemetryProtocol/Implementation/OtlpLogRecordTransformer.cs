@@ -181,6 +181,17 @@ internal sealed class OtlpLogRecordTransformer
                 }
             }
 
+            if (logRecord.Tags != null)
+            {
+                foreach (var tag in logRecord.Tags)
+                {
+                    if (OtlpKeyValueTransformer.Instance.TryTransformTag(tag, out var result, attributeValueLengthLimit))
+                    {
+                        AddAttribute(otlpLogRecord, result, attributeCountLimit);
+                    }
+                }
+            }
+
             if (logRecord.TraceId != default && logRecord.SpanId != default)
             {
                 byte[] traceIdBytes = new byte[16];

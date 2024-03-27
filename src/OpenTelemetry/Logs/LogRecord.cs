@@ -18,6 +18,7 @@ public sealed class LogRecord
 {
     internal LogRecordData Data;
     internal LogRecordILoggerData ILoggerData;
+
     internal IReadOnlyList<KeyValuePair<string, object?>>? AttributeData;
     internal List<KeyValuePair<string, object?>>? AttributeStorage;
     internal List<object?>? ScopeStorage;
@@ -336,6 +337,15 @@ public sealed class LogRecord
             this.AttributeData = value;
         }
     }
+
+    /// <summary>
+    /// Gets or sets the tags attached to the current <see cref="Activity"/>.
+    /// </summary>
+    /// <remarks>
+    /// Note: Set when <see  cref="OpenTelemetryLoggerOptions.AllowedTags"/> has
+    /// values and <see cref="Activity.Tags"/> has matching keys.
+    /// </remarks>
+    public IReadOnlyList<KeyValuePair<string, object?>>? Tags { get; set; }
 
     /// <summary>
     /// Gets or sets the log <see cref="System.Exception"/>.
